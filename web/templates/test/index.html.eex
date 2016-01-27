@@ -6,6 +6,7 @@
     <%= for key <- connection_keys @conn do %>
       <!-- <p><%= key %></p> -->
       <%= render "key.html", key: key %>
+      <!--  <%= render HelloPhoenix.TestView, "key.html", key: key %> -->
     <% end %>
 
 </div>
