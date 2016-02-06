@@ -2,6 +2,8 @@ defmodule HelloPhoenix.ListingMoviesIntegrationTest do
   use ExUnit.Case, async: true
   use Plug.Test
   alias HelloPhoenix.Router
+  alias HelloPhoenix.Movie
+  alias HelloPhoenix.Repo
 
   # plug Plug.Session,
   #   store: :cookie,
@@ -16,9 +18,14 @@ defmodule HelloPhoenix.ListingMoviesIntegrationTest do
     #   secure: true,
     #   table: :session)
 
+    movie = %Movie{name: "Back to the future", rating: 5}
+            |> Repo.insert!
+
+
     conn = conn(:get, "/api/movies")
     #  |> Plug.Session.call(opts)
     response = Router.call(conn, @opts)
     assert response.status == 200
+    assert response.resp_body == "[]"
   end
 end
