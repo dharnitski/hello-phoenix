@@ -21,4 +21,13 @@ defmodule HelloPhoenix.Movie do
     model
     |> cast(params, @required_fields, @optional_fields)
   end
+
+  defimpl Poison.Encoder, for: HelloPhoenix.Movie do
+    def encode(movie, _options) do
+      movie
+      |> Map.from_struct
+      |> Map.drop([:__meta__, :__struct__])
+      |> Poison.encode!
+    end
+  end
 end

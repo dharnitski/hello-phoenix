@@ -18,14 +18,15 @@ defmodule HelloPhoenix.ListingMoviesIntegrationTest do
     #   secure: true,
     #   table: :session)
 
-    movie = %Movie{name: "Back to the future", rating: 5}
-            |> Repo.insert!
-
+    %Movie{name: "Back to the future", rating: 5}
+      |> Repo.insert!
+    movies = Repo.all(Movie)
+      |> Poison.encode!
 
     conn = conn(:get, "/api/movies")
     #  |> Plug.Session.call(opts)
     response = Router.call(conn, @opts)
     assert response.status == 200
-    assert response.resp_body == "[]"
+    assert response.resp_body == movies
   end
 end

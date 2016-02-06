@@ -1,7 +1,9 @@
 defmodule HelloPhoenix.MovieController do
   use HelloPhoenix.Web, :controller
+  alias HelloPhoenix.Movie
 
   def index(conn, _params) do
-    render conn, movies: []
+    movies = Repo.all(Movie)
+    render conn, movies: movies
   end
 end
